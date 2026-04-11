@@ -89,3 +89,46 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
   text-wrap: balance;
 }
+
+.cv-page h1 {
+  margin-bottom: 0.6em;
+}
+
+.cv-page section {
+  margin-block: 1.5em;
+  padding: 1.2em;
+  background: white;
+  border: 1px solid oklch(90% 3% 200);
+  border-radius: 0.75em;
+}
+
+.cv-page h2 {
+  margin: 0 0 0.6em 0;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid oklch(85% 3% 200);
+  color: var(--color-accent);
+}
+
+.cv-page h3 {
+  margin-bottom: 0.2em;
+}
+
+.cv-page article {
+  margin-block: 0.8em;
+}
+
+.cv-page p {
+  margin: 0.35em 0;
+}
+
+.cv-page ul {
+  margin: 0.5em 0 0 1.25em;
+}
+
+.cv-page a {
+  color: var(--color-accent);
+}
+
+.cv-page time {
+  font-weight: 600;
+}
