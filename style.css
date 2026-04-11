@@ -6,7 +6,7 @@ body {
 }
 
 html {
-  --color-accent: oklch(65% 50% 0);
+  --color-accent: oklch(65.461% 0.11038 261.983);
   accent-color: var(--color-accent);
 }
 
@@ -125,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0 0 1.25em;
 }
 
-.cv-page a {
+.cv-page section a {
   color: var(--color-accent);
 }
 
