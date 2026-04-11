@@ -91,6 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cv-page h1 {
+  font-size: 3.2rem;
   margin-bottom: 0.6em;
 }
 
@@ -138,7 +139,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cv-layout {
-  max-width: 82ch;
+  max-width: 90ch;
   margin-inline: auto;
 }
 
