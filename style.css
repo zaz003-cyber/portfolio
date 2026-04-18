@@ -24,15 +24,16 @@ nav a {
   color: inherit;
   text-align: center;
   padding: 0.5em;
+  border-bottom: 0.4em solid transparent;
+  box-sizing: border-box;
 }
 
 nav a.current {
-  border-bottom: 0.4em solid var(--border-color);
-  padding-bottom: 0.1em;
+  border-bottom-color: var(--border-color);
 }
 
 nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
+  border-bottom-color: var(--color-accent);
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
