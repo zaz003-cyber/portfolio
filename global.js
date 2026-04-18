@@ -4,7 +4,10 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-let BASE_PATH = "/portfolio/";
+const BASE_PATH =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "/"
+    : "/portfolio/";
 
 let pages = [
   { url: "", title: "Home" },
@@ -18,14 +21,11 @@ let nav = document.createElement("nav");
 document.body.prepend(nav);
 
 for (let p of pages) {
-  let url = p.url;
-  let title = p.title;
-
-  url = !url.startsWith("http") ? BASE_PATH + url : url;
+  let url = !p.url.startsWith("http") ? BASE_PATH + p.url : p.url;
 
   let a = document.createElement("a");
   a.href = url;
-  a.textContent = title;
+  a.textContent = p.title;
 
   if (a.host === location.host && a.pathname === location.pathname) {
     a.classList.add("current");
@@ -33,6 +33,7 @@ for (let p of pages) {
 
   if (a.host !== location.host) {
     a.target = "_blank";
+    a.rel = "noopener noreferrer";
   }
 
   nav.append(a);
