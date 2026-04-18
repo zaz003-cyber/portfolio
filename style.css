@@ -16,6 +16,7 @@ nav {
   display: flex;
   margin-bottom: 1em;
   border-bottom: 1px solid var(--border-color);
+  align-items: stretch;
 }
 
 nav a {
