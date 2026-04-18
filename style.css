@@ -137,7 +137,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cv-page {
-  background: oklch(98% 0.01 240);
+  background: canvas;
+  color: canvastext;
 }
 
 .cv-layout {
@@ -153,8 +154,9 @@ h1, h2, h3, h4, h5, h6 {
 .cv-page section {
   margin-block: 1.1em;
   padding: 1em 1.2em;
-  background: white;
-  border: 1px solid oklch(88% 0.02 240);
+  background: color-mix(in oklch, canvas 94%, canvastext 6%);
+  color: canvastext;
+  border: 1px solid color-mix(in oklch, canvastext 18%, canvas 82%);
   border-radius: 0.9em;
   box-shadow: 0 6px 18px oklch(20% 0.02 240 / 0.06);
 }
@@ -162,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
 .cv-page h2 {
   margin: 0 0 0.55em 0;
   padding-bottom: 0.2em;
-  border-bottom: 2px solid oklch(90% 0.03 240);
+  border-bottom: 2px solid color-mix(in oklch, canvastext 15%, canvas 85%);
   color: var(--color-accent);
   font-size: 1.25rem;
 }
@@ -188,4 +190,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .cv-page section:first-of-type {
   margin-top: 0.5em;
+}
+
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+  font-family: inherit;
+}
+
+.color-scheme select {
+  font: inherit;
 }
