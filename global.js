@@ -4,17 +4,20 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-function normalizePath(path) {
-  path = path.replace(/index\.html$/, "").replace(/\/$/, "");
-  return path || "/";
+let pages = [
+  { url: "", title: "Home" },
+  { url: "projects/", title: "Projects" },
+  { url: "contact/", title: "Contact" },
+  { url: "cv/", title: "CV" },
+  { url: "https://github.com/zaz003-cyber", title: "GitHub" },
+];
+
+let nav = document.createElement("nav");
+document.body.prepend(nav);
+
+for (let p of pages) {
+  let url = p.url;
+  let title = p.title;
+
+  nav.insertAdjacentHTML("beforeend", `<a href="${url}">${title}</a>`);
 }
-
-let currentPath = normalizePath(location.pathname);
-
-$$("nav a").forEach((a) => {
-  let linkPath = normalizePath(new URL(a.href, location.href).pathname);
-
-  if (linkPath === currentPath) {
-    a.classList.add("current");
-  }
-});
