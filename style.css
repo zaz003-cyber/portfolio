@@ -1,6 +1,6 @@
 body {
   font: 100%/1.5 system-ui;
-  max-width: 130ch;
+  max-width: 150ch;
   margin-inline: auto;
   padding-inline: 1em;
   position: relative;
@@ -128,7 +128,7 @@ h6 {
 }
 
 .cv-layout {
-  max-width: 90ch;
+  max-width: 130ch;
   margin-inline: auto;
 }
 
