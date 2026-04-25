@@ -39,8 +39,8 @@ for (let p of pages) {
   nav.append(a);
 }
 
-document.body.insertAdjacentHTML(
-  "afterbegin",
+nav.insertAdjacentHTML(
+  "beforebegin",
   `
     <label class="color-scheme" for="theme-select">
       Theme:
