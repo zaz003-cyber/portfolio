@@ -42,9 +42,9 @@ for (let p of pages) {
 document.body.insertAdjacentHTML(
   "afterbegin",
   `
-    <label class="color-scheme">
+    <label class="color-scheme" for="theme-select">
       Theme:
-      <select>
+      <select id="theme-select" name="theme-select">
         <option value="light dark">Automatic</option>
         <option value="light">Light</option>
         <option value="dark">Dark</option>
@@ -74,5 +74,21 @@ export async function fetchJSON(url) {
     return await response.json();
   } catch (error) {
     console.error("Error fetching or parsing JSON data:", error);
+  }
+}
+
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  containerElement.innerHTML = '';
+
+  for (let project of projects) {
+    const article = document.createElement('article');
+
+    article.innerHTML = `
+      <${headingLevel}>${project.title}</${headingLevel}>
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+    `;
+
+    containerElement.appendChild(article);
   }
 }
