@@ -64,3 +64,15 @@ select.addEventListener("input", function (event) {
   document.documentElement.style.setProperty("color-scheme", scheme);
   localStorage.colorScheme = scheme;
 });
+
+export async function fetchJSON(url) {
+  try {
+    let response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch projects: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching or parsing JSON data:", error);
+  }
+}

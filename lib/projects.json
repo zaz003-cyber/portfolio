@@ -1,0 +1,65 @@
+[
+    {
+    "title": "Project 1",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This is a placeholder description for one of my future class projects."},
+
+    {
+    "title": "Project 2",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This project is included to help test the layout of the projects page."},
+
+    {
+    "title": "Project 3",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "I will replace this text with a real project description."},
+
+    {
+    "title": "Project 4",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This is another project used for styling and responsive design practice."},
+
+    {
+    "title": "Project 5",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This card helps create enough content to see how the grid behaves on the page."},
+    
+    {
+    "title": "Project 6",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "I will later use this area to show data visualization and programming work."},
+
+    {
+    "title": "Project 7",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This content is here so the projects page has multiple cards to arrange."},
+
+    {
+    "title": "Project 8",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This project will eventually be replaced with real work from future assignments."},
+
+    {
+    "title": "Project 9",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This is sample content used to prepare the projects page for responsive styling."},
+
+    {
+    "title": "Project 10",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Each project includes a title, an image, and a short paragraph as required."},
+
+    {
+    "title": "Project 11",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This card helps make the page look more complete during layout testing."},
+
+    {
+    "title": "Project 12",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Later, I can replace these placeholders with actual projects from other courses."}
+]
+
+
+
+
