@@ -194,12 +194,36 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.5em;
 }
 
+body {
+  position: relative;
+}
+
+nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  display: flex;
+  margin-bottom: 1em;
+  border-bottom: 1px solid var(--border-color);
+  align-items: stretch;
+  padding-right: 10rem;
+}
+
 .color-scheme {
   position: absolute;
-  top: 1rem;
+  top: 0.75rem;
   right: 1rem;
   font-size: 80%;
   font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: canvas;
+  color: canvastext;
+  padding: 0.2rem 0.4rem;
+  z-index: 10;
+}
+
+.color-scheme select {
+  font: inherit;
 }
 
 .color-scheme select {
