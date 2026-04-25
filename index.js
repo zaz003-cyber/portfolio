@@ -10,7 +10,7 @@ renderProjects(latestProjects, projectsContainer, 'h2');
 const githubData = await fetchGitHubData('zaz003-cyber');
 const profileStats = document.querySelector('#profile-stats');
 
-if (profileStats) {
+if (profileStats && githubData) {
   profileStats.innerHTML = `
     <dl>
       <dt>Public Repos:</dt><dd>${githubData.public_repos}</dd>
