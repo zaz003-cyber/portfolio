@@ -7,7 +7,7 @@ const projectsTitle = document.querySelector('.projects-title');
 const searchInput = document.querySelector('.searchBar');
 
 let query = '';
-let selectedIndex = -1;
+let selectedYear = null;
 
 function getFilteredProjects() {
   let filtered = projects.filter((project) => {
@@ -15,34 +15,11 @@ function getFilteredProjects() {
     return values.includes(query.toLowerCase());
   });
 
-  if (selectedIndex !== -1) {
-    let data = d3.rollups(
-      filtered,
-      (values) => values.length,
-      (d) => d.year,
-    ).map(([year, count]) => ({
-      value: count,
-      label: year,
-    }));
-
-    data.sort((a, b) => d3.ascending(a.label, b.label));
-
-    let selectedYear = data[selectedIndex]?.label;
-
-    if (selectedYear) {
-      filtered = filtered.filter((project) => project.year === selectedYear);
-    }
+  if (selectedYear) {
+    filtered = filtered.filter((project) => project.year === selectedYear);
   }
 
   return filtered;
-}
-
-function updatePage() {
-  let filteredProjects = getFilteredProjects();
-
-  renderProjects(filteredProjects, projectsContainer, 'h2');
-  projectsTitle.textContent = `${filteredProjects.length} Projects`;
-  renderPieChart(filteredProjects);
 }
 
 function renderPieChart(projectsGiven) {
@@ -63,8 +40,8 @@ function renderPieChart(projectsGiven) {
 
   data.sort((a, b) => d3.ascending(a.label, b.label));
 
-  if (selectedIndex >= data.length) {
-    selectedIndex = -1;
+  if (selectedYear && !data.some((d) => d.label === selectedYear)) {
+    selectedYear = null;
   }
 
   let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
@@ -74,14 +51,12 @@ function renderPieChart(projectsGiven) {
   let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
   arcData.forEach((arcDatum, index) => {
-    let arc = arcGenerator(arcDatum);
-
     svg.append('path')
-      .attr('d', arc)
+      .attr('d', arcGenerator(arcDatum))
       .attr('fill', colors(index))
-      .attr('class', index === selectedIndex ? 'selected' : '')
+      .attr('class', arcDatum.data.label === selectedYear ? 'selected' : '')
       .on('click', () => {
-        selectedIndex = selectedIndex === index ? -1 : index;
+        selectedYear = selectedYear === arcDatum.data.label ? null : arcDatum.data.label;
         updatePage();
       });
   });
@@ -89,19 +64,26 @@ function renderPieChart(projectsGiven) {
   data.forEach((d, index) => {
     legend.append('li')
       .attr('style', `--color: ${colors(index)}`)
-      .attr('class', index === selectedIndex ? 'selected' : '')
+      .attr('class', d.label === selectedYear ? 'selected' : '')
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
       .on('click', () => {
-        selectedIndex = selectedIndex === index ? -1 : index;
+        selectedYear = selectedYear === d.label ? null : d.label;
         updatePage();
       });
   });
+}
+
+function updatePage() {
+  let filteredProjects = getFilteredProjects();
+
+  renderProjects(filteredProjects, projectsContainer, 'h2');
+  projectsTitle.textContent = `${filteredProjects.length} Projects`;
+  renderPieChart(filteredProjects);
 }
 
 updatePage();
 
 searchInput.addEventListener('input', (event) => {
   query = event.target.value;
-  selectedIndex = -1;
   updatePage();
 });
