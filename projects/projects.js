@@ -13,14 +13,16 @@ const svg = d3.select('#projects-pie-plot');
 
 svg.selectAll('*').remove();
 
-let data = [
-  { value: 1, label: 'A' },
-  { value: 2, label: 'B' },
-  { value: 3, label: 'C' },
-  { value: 4, label: 'D' },
-  { value: 5, label: 'E' },
-  { value: 5, label: 'F' },
-];
+let data = d3.rollups(
+  projects,
+  (values) => values.length,
+  (d) => d.year
+).map(([year, count]) => ({
+  value: count,
+  label: year,
+}));
+
+data.sort((a, b) => d3.ascending(a.label, b.label));
 
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
