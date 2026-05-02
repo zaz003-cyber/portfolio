@@ -26,8 +26,8 @@ data.sort((a, b) => d3.ascending(a.label, b.label));
 
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
-let sliceGenerator = d3.pie();
-let arcData = sliceGenerator(data.map((d) => d.value));
+let sliceGenerator = d3.pie().value((d) => d.value);
+let arcData = sliceGenerator(data);
 let arcs = arcData.map((d) => arcGenerator(d));
 
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
