@@ -7,6 +7,7 @@ const projectsTitle = document.querySelector('.projects-title');
 const searchInput = document.querySelector('.searchBar');
 
 let query = '';
+let selectedIndex = -1;
 
 function renderPieChart(projectsGiven) {
   const svg = d3.select('#projects-pie-plot');
@@ -36,8 +37,18 @@ function renderPieChart(projectsGiven) {
   arcs.forEach((arc, index) => {
     svg.append('path')
       .attr('d', arc)
-      .attr('fill', colors(index));
-  });
+      .attr('fill', colors(index))
+      .attr('class', index === selectedIndex ? 'selected' : '')
+      .on('click', () => {
+        selectedIndex = selectedIndex === index ? -1 : index;
+        
+        svg.selectAll('path')
+          .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : '');
+        
+        legend.selectAll('li')
+          .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : '');
+    });
+});
 
   data.forEach((d, index) => {
     legend.append('li')
