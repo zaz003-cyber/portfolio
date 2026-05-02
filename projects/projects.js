@@ -41,18 +41,26 @@ function renderPieChart(projectsGiven) {
       .attr('class', index === selectedIndex ? 'selected' : '')
       .on('click', () => {
         selectedIndex = selectedIndex === index ? -1 : index;
-        
+
         svg.selectAll('path')
           .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : '');
-        
+
         legend.selectAll('li')
           .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : '');
-    });
-});
+
+        const yearFiltered = selectedIndex === -1
+          ? projectsGiven
+          : projectsGiven.filter((p) => p.year === data[selectedIndex].label);
+
+        renderProjects(yearFiltered, projectsContainer, 'h2');
+        projectsTitle.textContent = `${yearFiltered.length} Projects`;
+      });
+  });
 
   data.forEach((d, index) => {
     legend.append('li')
       .attr('style', `--color: ${colors(index)}`)
+      .attr('class', index === selectedIndex ? 'selected' : '')
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
   });
 }
