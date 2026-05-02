@@ -286,3 +286,11 @@ img {
   flex: 1;
   margin: 0;
 }
+
+#projects-pie-plot path {
+  transition: 300ms;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
