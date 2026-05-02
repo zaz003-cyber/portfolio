@@ -35,3 +35,13 @@ arcs.forEach((arc, index) => {
     .attr('d', arc)
     .attr('fill', colors(index));
 });
+
+const legend = d3.select('.legend');
+
+legend.selectAll('*').remove();
+
+data.forEach((d, index) => {
+  legend.append('li')
+    .attr('style', `--color: ${colors(index)}`)
+    .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
+});
