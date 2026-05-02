@@ -4,6 +4,9 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
 const projects = await fetchJSON('../lib/projects.json');
 const projectsContainer = document.querySelector('.projects');
 const projectsTitle = document.querySelector('.projects-title');
+const searchInput = document.querySelector('.searchBar');
+
+let query = '';
 
 let filteredProjects = projects.filter((project) => {
   return project.title.includes(query);
