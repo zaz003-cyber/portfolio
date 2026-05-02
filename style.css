@@ -294,3 +294,15 @@ img {
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
+
+#projects-pie-plot path {
+  cursor: pointer;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+#projects-pie-plot path.selected {
+  fill: var(--color);
+}
