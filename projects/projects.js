@@ -9,7 +9,8 @@ const searchInput = document.querySelector('.searchBar');
 let query = '';
 
 let filteredProjects = projects.filter((project) => {
-  return project.title.includes(query);
+  let values = Object.values(project).join('\n').toLowerCase();
+  return values.includes(query.toLowerCase());
 });
 
 renderProjects(filteredProjects, projectsContainer, 'h2');
@@ -19,7 +20,8 @@ searchInput.addEventListener('input', (event) => {
   query = event.target.value;
 
   let filteredProjects = projects.filter((project) => {
-    return project.title.includes(query);
+    let values = Object.values(project).join('\n').toLowerCase();
+    return values.includes(query.toLowerCase());
   });
 
   renderProjects(filteredProjects, projectsContainer, 'h2');
