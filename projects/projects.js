@@ -13,7 +13,14 @@ const svg = d3.select('#projects-pie-plot');
 
 svg.selectAll('*').remove();
 
-let data = [1, 2, 3, 4, 5, 5];
+let data = [
+  { value: 1, label: 'A' },
+  { value: 2, label: 'B' },
+  { value: 3, label: 'C' },
+  { value: 4, label: 'D' },
+  { value: 5, label: 'E' },
+  { value: 5, label: 'F' },
+];
 
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
