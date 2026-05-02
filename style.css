@@ -269,3 +269,20 @@ img {
   color: color-mix(in oklch, canvastext 70%, canvas 30%);
   font-style: normal;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-block: 2rem;
+}
+
+#projects-pie-plot {
+  flex: 0 0 20em;
+}
+
+.legend {
+  flex: 1;
+  margin: 0;
+}
