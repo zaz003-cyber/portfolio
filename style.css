@@ -220,3 +220,18 @@ img {
 .projects-title {
   margin-bottom: 0.5em;
 }
+
+.project-info {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.project-info p {
+  margin: 0;
+}
+
+.project-year {
+  color: color-mix(in oklch, canvastext 65%, canvas 35%);
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
+}
