@@ -5,9 +5,23 @@ const projects = await fetchJSON('../lib/projects.json');
 const projectsContainer = document.querySelector('.projects');
 const projectsTitle = document.querySelector('.projects-title');
 
-renderProjects(projects, projectsContainer, 'h2');
+let filteredProjects = projects.filter((project) => {
+  return project.title.includes(query);
+});
 
-projectsTitle.textContent = `${projects.length} Projects`;
+renderProjects(filteredProjects, projectsContainer, 'h2');
+projectsTitle.textContent = `${filteredProjects.length} Projects`;
+
+searchInput.addEventListener('input', (event) => {
+  query = event.target.value;
+
+  let filteredProjects = projects.filter((project) => {
+    return project.title.includes(query);
+  });
+
+  renderProjects(filteredProjects, projectsContainer, 'h2');
+  projectsTitle.textContent = `${filteredProjects.length} Projects`;
+});
 
 const svg = d3.select('#projects-pie-plot');
 
