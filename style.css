@@ -336,3 +336,21 @@ img {
 .searchBar {
   max-width: 100%;
 }
+
+#stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  gap: 1rem;
+  margin-block: 1rem 2rem;
+}
+
+#stats dt {
+  color: color-mix(in oklch, canvastext 65%, canvas 35%);
+  font-size: 0.9rem;
+}
+
+#stats dd {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
