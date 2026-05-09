@@ -174,11 +174,13 @@ function updateTooltipPosition(event) {
 }
 
 function createBrushSelector(svg, xScale, yScale, usableArea) {
+  const brushPadding = 25;
+
   svg.call(
     d3.brush()
       .extent([
         [usableArea.left, usableArea.top],
-        [usableArea.right, usableArea.bottom],
+        [usableArea.right + brushPadding, usableArea.bottom],
       ])
       .on('start brush end', (event) => {
         brushSelection = event.selection;
