@@ -197,6 +197,8 @@ function renderScatterPlot(data, commits) {
     
   const dots = svg.append('g').attr('class', 'dots');
 
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+
   dots
     .selectAll('circle')
     .data(commits)
