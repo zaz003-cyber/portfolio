@@ -54,20 +54,30 @@ function displayStats(data, commits) {
   const longestFile = d3.greatest(files, ([, lines]) => lines.length);
 
   stats.innerHTML = `
+  <div>
     <dt>Total lines</dt>
     <dd>${data.length}</dd>
+  </div>
 
+  <div>
     <dt>Total commits</dt>
     <dd>${commits.length}</dd>
+  </div>
 
+  <div>
     <dt>Total files</dt>
     <dd>${files.length}</dd>
+  </div>
 
+  <div>
     <dt>Max depth</dt>
     <dd>${maxDepth}</dd>
+  </div>
 
+  <div>
     <dt>Longest file</dt>
     <dd>${longestFile[0]} (${longestFile[1].length} lines)</dd>
+  </div>
   `;
 }
 
