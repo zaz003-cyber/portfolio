@@ -45,3 +45,28 @@ let data = await loadData();
 let commits = processCommits(data);
 
 console.log(commits);
+
+function displayStats(data, commits) {
+  const stats = document.querySelector('#stats');
+
+  const files = d3.groups(data, (d) => d.file);
+  const maxDepth = d3.max(data, (d) => d.depth);
+  const longestFile = d3.greatest(files, ([, lines]) => lines.length);
+
+  stats.innerHTML = `
+    <dt>Total lines</dt>
+    <dd>${data.length}</dd>
+
+    <dt>Total commits</dt>
+    <dd>${commits.length}</dd>
+
+    <dt>Total files</dt>
+    <dd>${files.length}</dd>
+
+    <dt>Max depth</dt>
+    <dd>${maxDepth}</dd>
+
+    <dt>Longest file</dt>
+    <dd>${longestFile[0]} (${longestFile[1].length} lines)</dd>
+  `;
+}
