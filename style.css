@@ -493,3 +493,11 @@ dl.info[hidden] {
 #chart svg {
   cursor: crosshair;
 }
+
+#selection-count {
+  min-height: 1.5rem;
+}
+
+#language-breakdown {
+  min-height: 7rem;
+}
