@@ -114,8 +114,24 @@ function updateTooltipVisibility(isVisible) {
 
 function updateTooltipPosition(event) {
   const tooltip = document.getElementById('commit-tooltip');
-  tooltip.style.left = `${event.clientX + 12}px`;
-  tooltip.style.top = `${event.clientY + 12}px`;
+
+  const tooltipWidth = tooltip.offsetWidth;
+  const tooltipHeight = tooltip.offsetHeight;
+  const padding = 12;
+
+  let left = event.clientX + padding;
+  let top = event.clientY + padding;
+
+  if (left + tooltipWidth > window.innerWidth) {
+    left = event.clientX - tooltipWidth - padding;
+  }
+
+  if (top + tooltipHeight > window.innerHeight) {
+    top = event.clientY - tooltipHeight - padding;
+  }
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
 }
 
 function renderScatterPlot(data, commits) {
