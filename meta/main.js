@@ -235,15 +235,17 @@ function renderScatterPlot(data, commits) {
 
   const yScale = d3
     .scaleLinear()
-    .domain([0, 24])
+    .domain([-1, 24])
     .range([usableArea.bottom, usableArea.top]);
 
   const xAxis = d3
     .axisBottom(xScale)
+    .ticks(8)
     .tickFormat(d3.timeFormat('%b %d'));
 
   const yAxis = d3
     .axisLeft(yScale)
+    .tickValues(d3.range(0, 25, 2))
     .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
 
   svg
