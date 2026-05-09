@@ -174,7 +174,7 @@ function updateTooltipPosition(event) {
 }
 
 function createBrushSelector(svg, xScale, yScale, usableArea) {
-  const brushPadding = 25;
+  const brushPadding = 35;
 
   svg.call(
     d3.brush()
@@ -238,7 +238,9 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
-  const xAxis = d3.axisBottom(xScale);
+  const xAxis = d3
+    .axisBottom(xScale)
+    .tickFormat(d3.timeFormat('%b %d'));
 
   const yAxis = d3
     .axisLeft(yScale)

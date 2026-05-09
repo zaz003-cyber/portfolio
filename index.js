@@ -4,7 +4,13 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
 const projects = await fetchJSON('./lib/projects.json');
 
 const latestProjects = d3
-  .sort(projects, (a, b) => d3.descending(a.year, b.year))
+  .sort(projects, (a, b) =>
+    d3.descending(a.year, b.year) ||
+    d3.descending(
+      Number(a.title.replace('Project ', '')),
+      Number(b.title.replace('Project ', ''))
+    )
+  )
   .slice(0, 3);
 
 const projectsContainer = document.querySelector('.projects');
