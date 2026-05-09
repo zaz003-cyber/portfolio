@@ -362,3 +362,12 @@ img {
   font-size: 1.4rem;
   font-weight: 700;
 }
+
+.gridlines line {
+  stroke: color-mix(in oklch, canvastext 20%, canvas 80%);
+  stroke-opacity: 0.4;
+}
+
+.gridlines path {
+  display: none;
+}
