@@ -481,3 +481,15 @@ dl.info[hidden] {
   font-size: 1.2rem;
   font-weight: 700;
 }
+
+#chart {
+  user-select: none;
+}
+
+#chart svg text {
+  user-select: none;
+}
+
+#chart svg {
+  cursor: crosshair;
+}
