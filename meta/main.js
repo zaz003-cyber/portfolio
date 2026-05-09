@@ -85,8 +85,6 @@ function renderLanguageBreakdown() {
   }
 }
 
-console.log(commits);
-
 function displayStats(data, commits) {
   const stats = document.querySelector('#stats');
 
