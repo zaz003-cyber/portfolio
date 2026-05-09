@@ -455,3 +455,29 @@ dl.info[hidden] {
   font-weight: 700;
   color: canvastext;
 }
+
+#language-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  gap: 1rem;
+  margin-block: 1rem 2rem;
+}
+
+#language-breakdown div {
+  padding: 1rem;
+  border: 1px solid color-mix(in oklch, canvastext 15%, canvas 85%);
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, canvas 94%, canvastext 6%);
+}
+
+#language-breakdown dt {
+  color: color-mix(in oklch, canvastext 65%, canvas 35%);
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+#language-breakdown dd {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}

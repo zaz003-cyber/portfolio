@@ -55,6 +55,36 @@ function renderSelectionCount() {
   } commits selected`;
 }
 
+function renderLanguageBreakdown() {
+  const container = document.querySelector('#language-breakdown');
+
+  if (selectedCommits.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const selectedLines = selectedCommits.flatMap((commit) => commit.lines);
+
+  const breakdown = d3.rollups(
+    selectedLines,
+    (lines) => lines.length,
+    (d) => d.type
+  );
+
+  container.innerHTML = '';
+
+  for (const [type, count] of breakdown) {
+    const proportion = count / selectedLines.length;
+
+    container.innerHTML += `
+      <div>
+        <dt>${type}</dt>
+        <dd>${count} lines (${d3.format('.1%')(proportion)})</dd>
+      </div>
+    `;
+  }
+}
+
 console.log(commits);
 
 function displayStats(data, commits) {
@@ -166,6 +196,7 @@ function createBrushSelector(svg, xScale, yScale) {
           .classed('selected', (d) => selectedCommits.includes(d));
 
         renderSelectionCount();
+        renderLanguageBreakdown();
       })
   );
 
