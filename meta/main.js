@@ -139,6 +139,11 @@ function renderScatterPlot(data, commits) {
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis);
      
+  const rScale = d3
+    .scaleSqrt()
+    .domain(d3.extent(commits, (d) => d.totalLines))
+    .range([4, 18]);
+    
   const dots = svg.append('g').attr('class', 'dots');
 
   dots
@@ -147,8 +152,9 @@ function renderScatterPlot(data, commits) {
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
-    .attr('r', 5)
-    .attr('fill', 'steelblue');
+    .attr('r', (d) => rScale(d.totalLines))
+    .attr('fill', 'steelblue')
+    .attr('fill-opacity', 0.7);
 }
 
 renderScatterPlot(data, commits);
