@@ -173,9 +173,13 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${top}px`;
 }
 
-function createBrushSelector(svg, xScale, yScale) {
+function createBrushSelector(svg, xScale, yScale, usableArea) {
   svg.call(
     d3.brush()
+      .extent([
+        [usableArea.left, usableArea.top],
+        [usableArea.right, usableArea.bottom],
+      ])
       .on('start brush end', (event) => {
         brushSelection = event.selection;
 
@@ -287,7 +291,7 @@ function renderScatterPlot(data, commits) {
         updateTooltipVisibility(false);
     });
 
-  createBrushSelector(svg, xScale, yScale);
+  createBrushSelector(svg, xScale, yScale, usableArea);
 }
 
 renderScatterPlot(data, commits);
