@@ -8,8 +8,8 @@ async function loadData() {
   }));
 
   console.log(data);
-  console.log(data[0].datetime);
-  console.log(data[0].datetime instanceof Date);
+  //console.log(data[0].datetime);
+  //console.log(data[0].datetime instanceof Date);
 }
 
 loadData();
