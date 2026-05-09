@@ -141,3 +141,5 @@ function renderScatterPlot(data, commits) {
     .attr('r', 5)
     .attr('fill', 'steelblue');
 }
+
+renderScatterPlot(data, commits);
