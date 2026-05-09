@@ -47,6 +47,14 @@ let commits = processCommits(data);
 let brushSelection = null;
 let selectedCommits = [];
 
+function renderSelectionCount() {
+  const countElement = document.querySelector('#selection-count');
+
+  countElement.textContent = `${
+    selectedCommits.length || 'No'
+  } commits selected`;
+}
+
 console.log(commits);
 
 function displayStats(data, commits) {
@@ -156,6 +164,8 @@ function createBrushSelector(svg, xScale, yScale) {
 
         d3.selectAll('circle')
           .classed('selected', (d) => selectedCommits.includes(d));
+
+        renderSelectionCount();
       })
   );
 

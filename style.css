@@ -449,3 +449,9 @@ dl.info[hidden] {
   stroke: canvastext;
   stroke-width: 2;
 }
+
+#selection-count {
+  margin-block: 1rem;
+  font-weight: 700;
+  color: canvastext;
+}
