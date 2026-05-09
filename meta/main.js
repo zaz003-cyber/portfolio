@@ -70,3 +70,5 @@ function displayStats(data, commits) {
     <dd>${longestFile[0]} (${longestFile[1].length} lines)</dd>
   `;
 }
+
+displayStats(data, commits);
