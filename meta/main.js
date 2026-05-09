@@ -134,6 +134,12 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${top}px`;
 }
 
+function createBrushSelector(svg) {
+  svg.call(d3.brush());
+
+  svg.selectAll('.dots, .overlay ~ *').raise();
+}
+
 function renderScatterPlot(data, commits) {
   const width = 1000;
   const height = 600;
@@ -219,6 +225,8 @@ function renderScatterPlot(data, commits) {
     .on('mouseleave', () => {
         updateTooltipVisibility(false);
     });
+
+  createBrushSelector(svg);
 }
 
 renderScatterPlot(data, commits);
