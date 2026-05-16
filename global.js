@@ -78,18 +78,20 @@ export async function fetchJSON(url) {
   }
 }
 
-export async function fetchGitHubData(username) {
-  return fetchJSON(`https://api.github.com/users/${username}`);
-}
-
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   containerElement.innerHTML = '';
 
   for (let project of projects) {
     const article = document.createElement('article');
-    
+
     article.innerHTML = `
-      <${headingLevel}>${project.title}</${headingLevel}>
+      <${headingLevel}>
+        ${
+          project.url
+            ? `<a href="${project.url}" target="_blank">${project.title}</a>`
+            : project.title
+        }
+      </${headingLevel}>
       <img src="${project.image}" alt="${project.title}">
       <div class="project-info">
         <p>${project.description}</p>
