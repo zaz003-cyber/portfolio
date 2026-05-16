@@ -68,7 +68,7 @@
     {
         "title": "Bikewatching",
         "year": "2026",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "image": "./images/project12.png",
         "description": "An interactive Mapbox and D3 project that visualizes Bluebikes stations, bike lanes, traffic volume, and flow patterns in the Boston area.",
         "url": "https://zaz003-cyber.github.io/bikewatching/"
     }
