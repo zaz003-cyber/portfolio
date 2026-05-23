@@ -619,3 +619,16 @@ dl.info[hidden] {
   bottom: auto;
   height: 50vh;
 }
+
+.step {
+  padding-block: 0 40vh;
+  line-height: 1.6;
+}
+
+.step:first-child {
+  padding-top: 1rem;
+}
+
+.step a {
+  color: var(--color-accent);
+}
