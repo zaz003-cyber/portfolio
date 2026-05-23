@@ -450,6 +450,19 @@ document
   .addEventListener('input', onTimeSliderChange);
 
 const steps = document.querySelectorAll('#scatter-narrative .step');
+const triggers = document.querySelectorAll('#scroll-triggers .trigger');
+
+function setActiveStep(progress) {
+  steps.forEach((step) => step.classList.remove('active'));
+
+  const activeStep = document.querySelector(
+    `#scatter-narrative .step[data-progress="${progress}"]`
+  );
+
+  if (activeStep) {
+    activeStep.classList.add('active');
+  }
+}
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -464,16 +477,16 @@ const observer = new IntersectionObserver(
     );
 
     const progress = Number(mostVisible.target.dataset.progress);
-    updateByProgress(progress);
 
-    steps.forEach((step) => step.classList.remove('active'));
-    mostVisible.target.classList.add('active');
+    updateByProgress(progress);
+    setActiveStep(progress);
   },
   {
     threshold: [0.25, 0.5, 0.75],
   }
 );
 
-steps.forEach((step) => observer.observe(step));
+triggers.forEach((trigger) => observer.observe(trigger));
 
 updateByProgress(100);
+setActiveStep(100);

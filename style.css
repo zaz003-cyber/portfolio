@@ -592,39 +592,58 @@ dl.info[hidden] {
 
 #scrolly-1 {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  grid-template-columns: minmax(0, 3fr) minmax(18rem, 1.2fr);
   gap: 2rem;
   align-items: start;
-  margin-block: 2rem;
+  margin-block: 2rem 1rem;
 }
 
 #scatter-story {
   position: sticky;
   top: 1rem;
   align-self: start;
+  padding: 1rem;
+  border: 1px solid color-mix(in oklch, canvastext 12%, canvas 88%);
+  border-radius: 1rem;
+  background: color-mix(in oklch, canvas 96%, canvastext 4%);
+}
+
+#scatter-story h2 {
+  margin-top: 0;
+}
+
+#scatter-story #chart {
+  max-width: 100%;
 }
 
 #scatter-narrative {
-  display: flex;
-  flex-direction: column;
-  gap: 60vh;
-  padding-block: 30vh;
+  position: sticky;
+  top: 8rem;
+  height: 12rem;
+  align-self: start;
 }
 
 #scatter-narrative .step {
+  display: none;
   padding: 1.25rem;
   border: 1px solid color-mix(in oklch, canvastext 15%, canvas 85%);
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   background: color-mix(in oklch, canvas 94%, canvastext 6%);
-  opacity: 0.45;
-  transition: opacity 200ms, transform 200ms;
+  box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.12);
 }
 
 #scatter-narrative .step.active {
-  opacity: 1;
-  transform: scale(1.02);
+  display: block;
 }
 
 #scatter-narrative .step h3 {
   margin-top: 0;
+}
+
+#scroll-triggers {
+  margin-top: -4rem;
+}
+
+#scroll-triggers .trigger {
+  height: 55vh;
 }
