@@ -348,6 +348,12 @@ updateByProgress(100);
 function onStepEnter(response) {
   const datetime = response.element.__data__.datetime;
   updateByProgress(timeScale(datetime));
+
+  const parent = response.element.parentElement;
+  parent.querySelectorAll('.step.is-active').forEach((el) =>
+    el.classList.remove('is-active')
+  );
+  response.element.classList.add('is-active');
 }
 
 const scatterScroller = scrollama();
