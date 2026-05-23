@@ -84,20 +84,22 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   for (let project of projects) {
     const article = document.createElement('article');
 
+    const imgMarkup = project.url
+      ? `<a class="project-link" href="${project.url}" target="_blank" rel="noopener noreferrer" aria-label="Open ${project.title}">
+           <img src="${project.image}" alt="${project.title}">
+         </a>`
+      : `<img src="${project.image}" alt="${project.title}">`;
+
     article.innerHTML = `
-      <${headingLevel}>
-        ${
-          project.url
-            ? `<a href="${project.url}" target="_blank">${project.title}</a>`
-            : project.title
-        }
-      </${headingLevel}>
-      <img src="${project.image}" alt="${project.title}">
+      <${headingLevel}>${project.title}</${headingLevel}>
+      ${imgMarkup}
       <div class="project-info">
         <p>${project.description}</p>
         <p class="project-year">${project.year}</p>
       </div>
     `;
+
+    if (project.url) article.classList.add('has-link');
 
     containerElement.appendChild(article);
   }

@@ -502,13 +502,50 @@ dl.info[hidden] {
   min-height: 7rem;
 }
 
-.projects h2 a {
-  color: inherit;
-  text-decoration: none;
+.projects article {
+  padding: 0.65rem;
+  border-radius: 0.85rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: transform 250ms ease, border-color 250ms ease,
+    box-shadow 250ms ease, background-color 250ms ease;
 }
 
-.projects h2 a:hover {
-  text-decoration: underline;
+.projects article.has-link {
+  cursor: pointer;
+}
+
+.projects article.has-link:hover,
+.projects article.has-link:focus-within {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklch, var(--color-accent) 45%, transparent);
+  background-color: color-mix(in oklch, canvas 92%, var(--color-accent) 8%);
+  box-shadow: 0 14px 32px color-mix(in oklch, var(--color-accent) 20%, transparent);
+}
+
+.project-link {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  outline: none;
+  line-height: 0;
+}
+
+.project-link img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 400ms ease, filter 300ms ease;
+}
+
+.projects article.has-link:hover .project-link img,
+.projects article.has-link:focus-within .project-link img {
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+
+.project-link:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-accent) 55%, transparent);
 }
 
 #commit-filter {
