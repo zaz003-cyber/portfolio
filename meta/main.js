@@ -423,35 +423,7 @@ function updateFileDisplay(commits) {
 
 renderScatterPlot(data, filteredCommits);
 
-const STORY_PROGRESS = [20, 45, 70, 100];
-
-function getStoryProgress(progress) {
-  let current = STORY_PROGRESS[0];
-
-  for (const value of STORY_PROGRESS) {
-    if (progress >= value) {
-      current = value;
-    }
-  }
-
-  return current;
-}
-
-function setActiveStep(progress) {
-  const steps = document.querySelectorAll('#scatter-narrative .step');
-
-  steps.forEach((step) => step.classList.remove('active'));
-
-  const activeStep = document.querySelector(
-    `#scatter-narrative .step[data-progress="${progress}"]`
-  );
-
-  if (activeStep) {
-    activeStep.classList.add('active');
-  }
-}
-
-function updateByProgress(progress, syncStory = true) {
+function updateByProgress(progress) {
   commitProgress = progress;
   commitMaxTime = timeScale.invert(commitProgress);
 
@@ -467,10 +439,6 @@ function updateByProgress(progress, syncStory = true) {
 
   updateScatterPlot(data, filteredCommits);
   updateFileDisplay(filteredCommits);
-
-  if (syncStory) {
-    setActiveStep(getStoryProgress(progress));
-  }
 }
 
 function onTimeSliderChange() {
@@ -481,7 +449,20 @@ document
   .querySelector('#commit-progress')
   .addEventListener('input', onTimeSliderChange);
 
+const steps = document.querySelectorAll('#scatter-narrative .step');
 const triggers = document.querySelectorAll('#scroll-triggers .trigger');
+
+function setActiveStep(progress) {
+  steps.forEach((step) => step.classList.remove('active'));
+
+  const activeStep = document.querySelector(
+    `#scatter-narrative .step[data-progress="${progress}"]`
+  );
+
+  if (activeStep) {
+    activeStep.classList.add('active');
+  }
+}
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -497,7 +478,7 @@ const observer = new IntersectionObserver(
 
     const progress = Number(mostVisible.target.dataset.progress);
 
-    updateByProgress(progress, false);
+    updateByProgress(progress);
     setActiveStep(progress);
   },
   {
