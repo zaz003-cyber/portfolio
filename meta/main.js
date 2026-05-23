@@ -306,62 +306,61 @@ function updateByProgress(progress) {
   commitMaxTime = timeScale.invert(commitProgress);
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
 
-  document.querySelector('#commit-progress').value = commitProgress;
-  document.querySelector('#commit-time').textContent =
-    commitMaxTime.toLocaleString('en', {
-      dateStyle: 'long',
-      timeStyle: 'short',
-    });
-
   updateScatterPlot(filteredCommits);
   updateFileDisplay(filteredCommits);
 }
 
+function stepHTML(d, i) {
+  return `
+    On ${d.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })},
+    I made <a href="${d.url}" target="_blank">${
+    i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+  }</a>.
+    I edited ${d.totalLines} lines across ${
+    d3.rollups(
+      d.lines,
+      (D) => D.length,
+      (d) => d.file,
+    ).length
+  } files.
+    Then I looked over all I had made, and I saw that it was very good.
+  `;
+}
+
+function renderSteps(containerSelector) {
+  d3.select(containerSelector)
+    .selectAll('.step')
+    .data(commits)
+    .join('div')
+    .attr('class', 'step')
+    .html(stepHTML);
+}
+
 displayStats(data, commits);
 initScatterPlot();
-
-d3.select('#scatter-story')
-  .selectAll('.step')
-  .data(commits)
-  .join('div')
-  .attr('class', 'step')
-  .html(
-    (d, i) => `
-      On ${d.datetime.toLocaleString('en', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      })},
-      I made <a href="${d.url}" target="_blank">${
-      i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
-    }</a>.
-      I edited ${d.totalLines} lines across ${
-      d3.rollups(
-        d.lines,
-        (D) => D.length,
-        (d) => d.file,
-      ).length
-    } files.
-      Then I looked over all I had made, and I saw that it was very good.
-    `,
-  );
-
+renderSteps('#scatter-story');
+renderSteps('#files-story');
 updateByProgress(100);
-
-document
-  .querySelector('#commit-progress')
-  .addEventListener('input', (e) => updateByProgress(Number(e.target.value)));
 
 function onStepEnter(response) {
   const datetime = response.element.__data__.datetime;
   updateByProgress(timeScale(datetime));
 }
 
-const scroller = scrollama();
-scroller
-  .setup({
-    container: '#scrolly-1',
-    step: '#scrolly-1 .step',
-  })
+const scatterScroller = scrollama();
+scatterScroller
+  .setup({ container: '#scrolly-1', step: '#scrolly-1 .step' })
   .onStepEnter(onStepEnter);
 
-window.addEventListener('resize', () => scroller.resize());
+const filesScroller = scrollama();
+filesScroller
+  .setup({ container: '#scrolly-2', step: '#scrolly-2 .step' })
+  .onStepEnter(onStepEnter);
+
+window.addEventListener('resize', () => {
+  scatterScroller.resize();
+  filesScroller.resize();
+});
