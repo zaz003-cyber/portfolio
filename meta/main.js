@@ -43,6 +43,22 @@ function processCommits(data) {
 
 let data = await loadData();
 let commits = processCommits(data);
+commits = d3.sort(commits, (d) => d.datetime);
+
+let commitProgress = 100;
+let filteredCommits = commits;
+
+let timeScale = d3
+  .scaleTime()
+  .domain([
+    d3.min(commits, (d) => d.datetime),
+    d3.max(commits, (d) => d.datetime),
+  ])
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
+
+console.log(commits);
 
 let brushSelection = null;
 let selectedCommits = [];
@@ -218,8 +234,7 @@ function renderScatterPlot(data, commits) {
     bottom: height - margin.bottom,
     left: margin.left,
     width: width - margin.left - margin.right,
-    height: height - margin.top - margin.bottom,
-  };
+    height: height - margin.top - margin.bottom,};
 
   const svg = d3
     .select('#chart')
@@ -250,6 +265,7 @@ function renderScatterPlot(data, commits) {
 
   svg
     .append('g')
+    .attr('class', 'x-axis')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis);
 
@@ -260,10 +276,10 @@ function renderScatterPlot(data, commits) {
     .call(
         d3.axisLeft(yScale)
         .tickFormat('')
-        .tickSize(-usableArea.width)
-    );
+        .tickSize(-usableArea.width));
   svg
     .append('g')
+    .attr('class', 'y-axis')
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis);
      
@@ -278,7 +294,7 @@ function renderScatterPlot(data, commits) {
 
   dots
     .selectAll('circle')
-    .data(sortedCommits)
+    .data(sortedCommits, (d) => d.id)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
@@ -300,4 +316,90 @@ function renderScatterPlot(data, commits) {
   createBrushSelector(svg, xScale, yScale, usableArea);
 }
 
-renderScatterPlot(data, commits);
+function updateScatterPlot(data, commits) {
+  const width = 1000;
+  const height = 600;
+  const margin = { top: 10, right: 10, bottom: 30, left: 35 };
+
+  const usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+    width: width - margin.left - margin.right,
+    height: height - margin.top - margin.bottom,
+  };
+
+  const svg = d3.select('#chart').select('svg');
+
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(commits, (d) => d.datetime))
+    .range([usableArea.left, usableArea.right])
+    .nice();
+
+  const yScale = d3
+    .scaleLinear()
+    .domain([-1, 24])
+    .range([usableArea.bottom, usableArea.top]);
+
+  const xAxis = d3
+    .axisBottom(xScale)
+    .tickFormat(d3.timeFormat('%b %d'));
+
+  const xAxisGroup = svg.select('g.x-axis');
+  xAxisGroup.selectAll('*').remove();
+  xAxisGroup.call(xAxis);
+
+  const rScale = d3
+    .scaleSqrt()
+    .domain(d3.extent(commits, (d) => d.totalLines))
+    .range([4, 18]);
+
+  const dots = svg.select('g.dots');
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+
+  dots
+    .selectAll('circle')
+    .data(sortedCommits, (d) => d.id)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', (d) => rScale(d.totalLines))
+    .attr('fill', 'steelblue')
+    .attr('fill-opacity', 0.7)
+    .on('mouseenter', (event, commit) => {
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mousemove', (event) => {
+      updateTooltipPosition(event);
+    })
+    .on('mouseleave', () => {
+      updateTooltipVisibility(false);
+    });
+}
+
+renderScatterPlot(data, filteredCommits);
+
+function onTimeSliderChange() {
+  commitProgress = Number(document.querySelector('#commit-progress').value);
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  document.querySelector('#commit-time').textContent =
+    commitMaxTime.toLocaleString('en', {
+      dateStyle: 'long',
+      timeStyle: 'short',
+    });
+
+  updateScatterPlot(data, filteredCommits);
+}
+
+document
+  .querySelector('#commit-progress')
+  .addEventListener('input', onTimeSliderChange);
+
+onTimeSliderChange();

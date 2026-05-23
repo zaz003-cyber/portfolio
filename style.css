@@ -510,3 +510,27 @@ dl.info[hidden] {
 .projects h2 a:hover {
   text-decoration: underline;
 }
+
+#commit-filter {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-block: 1rem 2rem;
+}
+
+#commit-filter input {
+  flex: 1;
+}
+
+#commit-time {
+  min-width: 18em;
+  text-align: right;
+}
+
+#chart circle {
+  transition: all 200ms, r 200ms;
+
+  @starting-style {
+    r: 0;
+  }
+}
