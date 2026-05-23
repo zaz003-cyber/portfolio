@@ -449,44 +449,4 @@ document
   .querySelector('#commit-progress')
   .addEventListener('input', onTimeSliderChange);
 
-const steps = document.querySelectorAll('#scatter-narrative .step');
-const triggers = document.querySelectorAll('#scroll-triggers .trigger');
-
-function setActiveStep(progress) {
-  steps.forEach((step) => step.classList.remove('active'));
-
-  const activeStep = document.querySelector(
-    `#scatter-narrative .step[data-progress="${progress}"]`
-  );
-
-  if (activeStep) {
-    activeStep.classList.add('active');
-  }
-}
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-
-    if (visibleEntries.length === 0) {
-      return;
-    }
-
-    const mostVisible = visibleEntries.reduce((a, b) =>
-      a.intersectionRatio > b.intersectionRatio ? a : b
-    );
-
-    const progress = Number(mostVisible.target.dataset.progress);
-
-    updateByProgress(progress);
-    setActiveStep(progress);
-  },
-  {
-    threshold: [0.25, 0.5, 0.75],
-  }
-);
-
-triggers.forEach((trigger) => observer.observe(trigger));
-
 updateByProgress(100);
-setActiveStep(100);
