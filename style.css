@@ -540,6 +540,10 @@ dl.info[hidden] {
   grid-template-columns: minmax(12em, 22em) 1fr;
   gap: 0.75rem 1rem;
   margin-block: 1rem 2rem;
+
+  height: 10rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
 #files > div {
