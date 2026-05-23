@@ -641,12 +641,15 @@ dl.info[hidden] {
 
 .step {
   padding: 1rem 1.25rem;
-  margin-block-end: 50vh;
+  margin-block-end: 30vh;
   line-height: 1.65;
-  border-left: 3px solid transparent;
-  border-radius: 0.5rem;
-  transition: border-color 250ms, background-color 250ms, opacity 250ms;
-  opacity: 0.55;
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, canvas 95%, canvastext 5%);
+  border: 1px solid color-mix(in oklch, canvastext 10%, canvas 90%);
+  border-left: 3px solid color-mix(in oklch, canvastext 18%, canvas 82%);
+  opacity: 0.75;
+  transition: opacity 250ms, background-color 250ms, border-color 250ms,
+    box-shadow 250ms, transform 250ms;
 }
 
 .step:first-child {
@@ -655,10 +658,14 @@ dl.info[hidden] {
 
 .step.is-active {
   opacity: 1;
+  border-color: color-mix(in oklch, var(--color-accent) 25%, transparent);
   border-left-color: var(--color-accent);
-  background: color-mix(in oklch, canvas 92%, var(--color-accent) 8%);
+  background: color-mix(in oklch, canvas 88%, var(--color-accent) 12%);
+  box-shadow: 0 6px 20px color-mix(in oklch, var(--color-accent) 18%, transparent);
+  transform: translateX(2px);
 }
 
 .step a {
   color: var(--color-accent);
+  font-weight: 600;
 }
