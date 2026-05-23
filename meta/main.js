@@ -423,11 +423,13 @@ function updateFileDisplay(commits) {
 
 renderScatterPlot(data, filteredCommits);
 
-function onTimeSliderChange() {
-  commitProgress = Number(document.querySelector('#commit-progress').value);
+function updateByProgress(progress) {
+  commitProgress = progress;
   commitMaxTime = timeScale.invert(commitProgress);
 
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  document.querySelector('#commit-progress').value = commitProgress;
 
   document.querySelector('#commit-time').textContent =
     commitMaxTime.toLocaleString('en', {
@@ -439,8 +441,39 @@ function onTimeSliderChange() {
   updateFileDisplay(filteredCommits);
 }
 
+function onTimeSliderChange() {
+  updateByProgress(Number(document.querySelector('#commit-progress').value));
+}
+
 document
   .querySelector('#commit-progress')
   .addEventListener('input', onTimeSliderChange);
 
-onTimeSliderChange();
+const steps = document.querySelectorAll('#scatter-narrative .step');
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+    if (visibleEntries.length === 0) {
+      return;
+    }
+
+    const mostVisible = visibleEntries.reduce((a, b) =>
+      a.intersectionRatio > b.intersectionRatio ? a : b
+    );
+
+    const progress = Number(mostVisible.target.dataset.progress);
+    updateByProgress(progress);
+
+    steps.forEach((step) => step.classList.remove('active'));
+    mostVisible.target.classList.add('active');
+  },
+  {
+    threshold: [0.25, 0.5, 0.75],
+  }
+);
+
+steps.forEach((step) => observer.observe(step));
+
+updateByProgress(100);

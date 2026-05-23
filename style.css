@@ -589,3 +589,42 @@ dl.info[hidden] {
   background: var(--color, steelblue);
   border-radius: 50%;
 }
+
+#scrolly-1 {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-block: 2rem;
+}
+
+#scatter-story {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+}
+
+#scatter-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 60vh;
+  padding-block: 30vh;
+}
+
+#scatter-narrative .step {
+  padding: 1.25rem;
+  border: 1px solid color-mix(in oklch, canvastext 15%, canvas 85%);
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, canvas 94%, canvastext 6%);
+  opacity: 0.45;
+  transition: opacity 200ms, transform 200ms;
+}
+
+#scatter-narrative .step.active {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+#scatter-narrative .step h3 {
+  margin-top: 0;
+}
