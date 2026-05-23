@@ -47,6 +47,7 @@ commits = d3.sort(commits, (d) => d.datetime);
 
 let commitProgress = 100;
 let filteredCommits = commits;
+let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
 
 let timeScale = d3
   .scaleTime()
@@ -381,6 +382,45 @@ function updateScatterPlot(data, commits) {
     });
 }
 
+function updateFileDisplay(commits) {
+  const lines = commits.flatMap((d) => d.lines);
+
+  const files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    })
+    .sort((a, b) => b.lines.length - a.lines.length);
+
+  const filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join((enter) =>
+      enter.append('div').call((div) => {
+        div.append('dt');
+        div.append('dd');
+      })
+    );
+
+  filesContainer
+    .select('dt')
+    .html(
+      (d) => `
+        <code>${d.name}</code>
+        <small>${d.lines.length} lines</small>
+      `
+    );
+
+  filesContainer
+    .select('dd')
+    .selectAll('div')
+    .data((d) => d.lines)
+    .join('div')
+    .attr('class', 'loc')
+    .attr('style', (d) => `--color: ${fileTypeColors(d.type)}`);
+}
+
 renderScatterPlot(data, filteredCommits);
 
 function onTimeSliderChange() {
@@ -396,6 +436,7 @@ function onTimeSliderChange() {
     });
 
   updateScatterPlot(data, filteredCommits);
+  updateFileDisplay(filteredCommits);
 }
 
 document
