@@ -1,3 +1,5 @@
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
+
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
     ...row,
@@ -299,6 +301,38 @@ function updateFileDisplay(commits) {
     .attr('style', (d) => `--color: ${fileTypeColors(d.type)}`);
 }
 
+function renderScrollytellingSteps() {
+  d3.select('#scatter-story')
+    .selectAll('.step')
+    .data(commits)
+    .join('div')
+    .attr('class', 'step')
+    .html(
+      (d, i) => `
+        On ${d.datetime.toLocaleString('en', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        })},
+        I made <a href="${d.url}" target="_blank">${
+        i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+      }</a>.
+        I edited ${d.totalLines} lines across ${
+        d3.rollups(
+          d.lines,
+          (D) => D.length,
+          (d) => d.file,
+        ).length
+      } files.
+        Then I looked over all I had made, and I saw that it was very good.
+      `,
+    );
+}
+
+function onStepEnter(response) {
+  const datetime = response.element.__data__.datetime;
+  updateByProgress(timeScale(datetime));
+}
+
 function updateByProgress(progress) {
   commitProgress = progress;
   commitMaxTime = timeScale.invert(commitProgress);
@@ -317,8 +351,19 @@ function updateByProgress(progress) {
 
 displayStats(data, commits);
 initScatterPlot();
+renderScrollytellingSteps();
 updateByProgress(100);
 
 document
   .querySelector('#commit-progress')
   .addEventListener('input', (e) => updateByProgress(Number(e.target.value)));
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
+
+window.addEventListener('resize', () => scroller.resize());
