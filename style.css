@@ -543,7 +543,10 @@ dl.info[hidden] {
 
   height: 28rem;
   overflow-y: auto;
-  padding-right: 0.5rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in oklch, canvastext 12%, canvas 88%);
+  border-radius: 1rem;
+  background: color-mix(in oklch, canvas 96%, canvastext 4%);
 }
 
 #files > div {
