@@ -1,3 +1,5 @@
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
+
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
     ...row,
@@ -348,3 +350,18 @@ updateByProgress(100);
 document
   .querySelector('#commit-progress')
   .addEventListener('input', (e) => updateByProgress(Number(e.target.value)));
+
+function onStepEnter(response) {
+  const datetime = response.element.__data__.datetime;
+  updateByProgress(timeScale(datetime));
+}
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
+
+window.addEventListener('resize', () => scroller.resize());
